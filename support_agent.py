@@ -258,17 +258,31 @@ def close_ticket(ticket_id: str):
     if ticket_id not in tickets:
         return {"status": "error", "message": "Ticket not found"}
 
-    tickets[ticket_id]["status"] = "closed"
+    tickets[ticket_id]["status"] = "Closed"
 
     with open("tickets.json", "w") as f:
         json.dump(tickets, f, indent=2)
 
     return {"status": "success", "message": f"Ticket {ticket_id} closed successfully"}
+
+@tool
+def open_ticket(ticket_id: str):
+    tickets = load_tickets()
+
+    if ticket_id not in tickets:
+        return {"status": "error", "message": "Ticket not found"}
+
+    tickets[ticket_id]["status"] = "Open"
+
+    with open("tickets.json", "w") as f:
+        json.dump(tickets, f, indent=2)
+
+    return {"status": "success", "message": f"Ticket {ticket_id} is now open"}
     
 # ------------------ AGENT ------------------
 
 def support_agent(user_name: str, query: str, user_email: str, ticket_id: str = '') -> str:
-    tools_list = [check_knowledge_base, time_elapsed, status_check, create_ticket, close_ticket]
+    tools_list = [check_knowledge_base, time_elapsed, status_check, create_ticket, close_ticket, open_ticket]
 
     chat_model = init_chat_model(MODEL, model_provider="nvidia")
     tools_dict = {t.name: t for t in tools_list}
