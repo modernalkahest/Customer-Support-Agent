@@ -1,0 +1,48 @@
+{
+    "customer@example.com": [
+        {
+            "ticket_id": "TKT-e233d4-45fd343e",
+            "issue_description": "delayed order and estimated delivery time",
+            "created_at": "2026-04-26T13:04:36.567959",
+            "status": "Open"
+        },
+        {
+            "ticket_id": "TKT-e233d4-f790b02a",
+            "issue_description": "order delay and estimated time",
+            "created_at": "2026-04-26T13:11:43.377759",
+            "status": "Open"
+        },
+        {
+            "ticket_id": "TKT-e233d4-d8162be1",
+            "issue_description": "delayed order and estimated time",
+            "created_at": "2026-04-26T13:17:15.439545",
+            "status": "Open"
+        }
+    ],
+    "mohithemaprasad@gmail.com": [
+        {
+            "ticket_id": "TKT-728c76-5816210d",
+            "issue_description": "Order not arrived after 30 minutes",
+            "created_at": "2026-04-26T13:41:10.070972",
+            "status": "Open"
+        },
+        {
+            "ticket_id": "TKT-728c76-eeec5df0",
+            "issue_description": "Order placement after outlet closed",
+            "created_at": "2026-04-26T14:03:51.897569",
+            "status": "Open"
+        },
+        {
+            "ticket_id": "TKT-728c76-e58503e4",
+            "issue_description": "order placed after outlet closed",
+            "created_at": "2026-04-26T14:19:35.737592",
+            "status": "Open"
+        },
+        {
+            "ticket_id": "TKT-728c76-16b618b2",
+            "issue_description": "Received a different order. Had ordered Mint Hot Chocolate fudge but got a regular Hot Chocolate fudge instead.",
+            "created_at": "2026-04-26T14:51:02.626354",
+            "status": "Open"
+        }
+    ]
+}
