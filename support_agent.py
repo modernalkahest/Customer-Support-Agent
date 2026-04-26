@@ -15,8 +15,11 @@ from langchain_text_splitters import MarkdownHeaderTextSplitter, RecursiveCharac
 from langchain_community.vectorstores import FAISS
 from openai import OpenAI
 from langchain_core.embeddings import Embeddings
+import streamlit as st
 
 # ------------------ SETUP ------------------
+
+os.environ["NVIDIA_API_KEY"] = st.secrets["NVIDIA_API_KEY"]
 
 load_dotenv()
 
@@ -25,7 +28,7 @@ MODEL = "meta/llama-3.1-70b-instruct"
 
 client = OpenAI(
     base_url="https://integrate.api.nvidia.com/v1",
-    api_key=os.getenv("NVIDIA_API_KEY")
+    api_key = os.getenv("NVIDIA_API_KEY")
 )
 
 def embed_texts(texts):
