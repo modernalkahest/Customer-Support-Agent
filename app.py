@@ -21,6 +21,9 @@ if "chat_history" not in st.session_state:
 if "user_email" not in st.session_state:
     st.session_state.user_email = ""
 
+if "user_name" not in st.session_state:
+    st.session_state.user_name = ""
+
 if "selected_ticket" not in st.session_state:
     st.session_state.selected_ticket = ""
 
@@ -28,24 +31,26 @@ if "selected_ticket" not in st.session_state:
 
 st.title("🛠️ AI Customer Support Agent")
 
-# ------------------ EMAIL GATE ------------------
+# ------------------ NAME + EMAIL GATE ------------------
 
 if not st.session_state.user_email:
-    st.subheader("🔒 Enter your email to continue")
+    st.subheader("🔒 Enter your details to continue")
 
+    name_input = st.text_input("Name", placeholder="John Doe")
     email_input = st.text_input("Email", placeholder="customer@example.com")
 
     if st.button("Start Session"):
-        if email_input.strip():
+        if name_input.strip() and email_input.strip():
+            st.session_state.user_name = name_input.strip()
             st.session_state.user_email = email_input.strip().lower()
 
-            # Reset state
+            # Reset session state
             st.session_state.chat_history = []
             st.session_state.selected_ticket = ""
 
             st.rerun()
         else:
-            st.warning("Email is required.")
+            st.warning("Both name and email are required.")
 
     st.stop()
 
@@ -53,7 +58,8 @@ if not st.session_state.user_email:
 
 with st.sidebar:
     st.header("👤 User")
-    st.write(st.session_state.user_email)
+    st.write(f"**Name:** {st.session_state.user_name}")
+    st.write(f"**Email:** {st.session_state.user_email}")
 
     st.markdown("---")
 
@@ -71,7 +77,7 @@ with st.sidebar:
         options = ["➕ Create New Ticket"]
         ticket_map = {}
 
-        for t in reversed(user_tickets):  # latest first
+        for t in reversed(user_tickets):
             label = f"{t['ticket_id']} | {t['status']}"
             options.append(label)
             ticket_map[label] = t
@@ -98,6 +104,7 @@ with st.sidebar:
 
     if st.button("🚪 Logout"):
         st.session_state.user_email = ""
+        st.session_state.user_name = ""
         st.session_state.chat_history = []
         st.session_state.selected_ticket = ""
         st.rerun()
@@ -107,7 +114,7 @@ with st.sidebar:
 col1, col2 = st.columns([6, 1])
 
 with col1:
-    st.subheader("💬 Chat")
+    st.subheader(f"💬 Chat — {st.session_state.user_name}")
 
 with col2:
     if st.button("🧹 Clear"):
@@ -146,6 +153,7 @@ if user_query:
         with st.spinner("Processing..."):
             try:
                 response = support_agent(
+                    user_name = st.session_state.user_name,
                     query=user_query,
                     user_email=st.session_state.user_email,
                     ticket_id=st.session_state.selected_ticket
