@@ -283,6 +283,10 @@ def support_agent(query: str, user_email: str, ticket_id: str = '') -> str:
                 "- If you created a new ticket, include its ID in the response\n"
                 "- Do not show your working to the user, only the final response\n"
                 "- DO NOT mention any tool calls and tool results in the final response, they are for your internal use only\n"
+                """- If you are responding in an email style always add this as a by-line
+                Best Regards, \n
+                Mohit's Customer Service Agent
+                """
             )
         ),
         HumanMessage(content=query)
