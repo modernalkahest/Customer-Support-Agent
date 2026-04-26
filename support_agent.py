@@ -252,7 +252,7 @@ def create_ticket(issue_description: str, user_email: str) -> str:
     return f"Ticket created: {ticket['ticket_id']}"
 # ------------------ AGENT ------------------
 
-def support_agent(query: str, user_email: str, ticket_id: str = '') -> str:
+def support_agent(user_name: str, query: str, user_email: str, ticket_id: str = '') -> str:
     tools_list = [check_knowledge_base, time_elapsed, status_check, create_ticket]
 
     chat_model = init_chat_model(MODEL, model_provider="nvidia")
@@ -263,6 +263,7 @@ def support_agent(query: str, user_email: str, ticket_id: str = '') -> str:
         SystemMessage(
             content=(
                 "You are a customer support agent.\n"
+                f"User name: {user_name}\n"
                 f"User email: {user_email}\n"
                 f"Ticket ID: {ticket_id}\n"
                 "MANDATORY WORKFLOW:\n"
@@ -275,6 +276,7 @@ def support_agent(query: str, user_email: str, ticket_id: str = '') -> str:
                 "   - Call check_knowledge_base\n"
                 "   - Then create_ticket\n"
                 "STRICT:\n"
+                f"- ALWAYS address the user with {user_name} while responding"
                 "- Never answer without calling tools\n"
                 "- Never fabricate policy\n"
                 "- Always base decisions on tool outputs\n"
