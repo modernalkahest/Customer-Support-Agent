@@ -5,9 +5,6 @@ __pycache__/
 # Env
 .env
 
-# Data
-tickets.json
-
 # Mac
 .DS_Store
 
