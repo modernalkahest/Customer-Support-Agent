@@ -253,6 +253,9 @@ def create_ticket(issue_description: str, user_email: str) -> str:
 
 @tool
 def close_ticket(ticket_id: str):
+    """
+    Closes a support ticket given its ticket ID.
+    """
     tickets = load_tickets()
 
     if ticket_id not in tickets:
@@ -267,6 +270,9 @@ def close_ticket(ticket_id: str):
 
 @tool
 def open_ticket(ticket_id: str):
+    """
+    Opens a closed support ticket given its ticket ID.
+    """
     tickets = load_tickets()
 
     if ticket_id not in tickets:
